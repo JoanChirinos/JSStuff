@@ -6,30 +6,136 @@
         
         <title>Tic-tac-toe</title>
         
-        <link href="style.css" type="text/css" rel="stylesheet">
+        <style>
+            img {
+                width: 10vw;
+                height: 10vw;
+            }
+        </style>
         
     </head>
+    
+    
     
     <body onload='setup();'>
         
         <!-- fxns -->
         <script>
             var turn = 'x';
+            var clickToggle = true;
+            
+            var arr = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
             
             function setup() {
                 turn = 'x';
+                clickToggle = true;
+                arr = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
                 for (i = 1; i <= 9; i++) {
                     document.getElementById(i + 'x').style.display = "none";
                     document.getElementById(i + 'o').style.display = "none";
+                    document.getElementById('oWon').style.display = "none";
+                    document.getElementById('xWon').style.display = "none";
                     document.getElementById(i).style.display = "block";
                 }
             }
             
             function boop(boxNum) {
-                document.getElementById(boxNum).style.display = "none";
-                document.getElementById(boxNum + turn).style.display = "block";
-                if (turn == 'x') turn = 'o';
-                else turn = 'x';
+                if (clickToggle) {
+                    document.getElementById(boxNum).style.display = "none";
+                    document.getElementById(boxNum + turn).style.display = "block";
+                    if (turn == 'x') {
+                        arr[boxNum - 1] = 0;
+                        turn = 'o';
+                    }
+                    else {
+                        arr[boxNum - 1] = 1;
+                        turn = 'x';
+                    }
+                    someoneWon();
+                }
+            }
+            
+            function someoneWon() {
+                if (arr[0] == arr[1] && arr[1] == arr[2]) {
+                    if (arr[0] == 0) {
+                        document.getElementById('xWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                    else if (arr[0] == 1) {
+                        document.getElementById('oWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                }
+                if (arr[3] == arr[4] && arr[4] == arr[5]) {
+                    if (arr[3] == 0) {
+                        document.getElementById('xWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                    else if (arr[3] == 1) {
+                        document.getElementById('oWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                }
+                if (arr[6] == arr[7] && arr[7] == arr[8]) {
+                    if (arr[6] == 0) {
+                        document.getElementById('xWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                    else if (arr[6] == 1) {
+                        document.getElementById('oWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                }
+                if (arr[0] == arr[3] && arr[3] == arr[6]) {
+                    if (arr[0] == 0) {
+                        document.getElementById('xWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                    else if (arr[0] == 1) {
+                        document.getElementById('oWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                }
+                if (arr[1] == arr[4] && arr[4] == arr[7]) {
+                    if (arr[1] == 0) {
+                        document.getElementById('xWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                    else if (arr[1] == 1) {
+                        document.getElementById('oWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                }
+                if (arr[2] == arr[5] && arr[5] == arr[8]) {
+                    if (arr[2] == 0) {
+                        document.getElementById('xWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                    else if (arr[2] == 1) {
+                        document.getElementById('oWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                }
+                if (arr[0] == arr[4] && arr[4] == arr[8]) {
+                    if (arr[0] == 0) {
+                        document.getElementById('xWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                    else if (arr[0] == 1) {
+                        document.getElementById('oWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                }
+                if (arr[2] == arr[4] && arr[4] == arr[6]) {
+                    if (arr[2] == 0) {
+                        document.getElementById('xWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                    else if (arr[2] == 1) {
+                        document.getElementById('oWon').style.display = "block";
+                        clickToggle = false;
+                    }
+                }
             }
             
         </script>
@@ -37,56 +143,61 @@
         <center><table border="1">
             <tr>
                 <td style="width: 10vw; height: 10vw">
-                    <button id="1" style="width: 10vw; height: 10vw;" onclick="boop(1);"></button>
-                    <center><span id="1x">x</span></center>
-                    <center><span id="1o">o</span></center>
+                    <span id="1" style="width: 10vw; height: 10vw;" onclick="boop(1);"></span>
+                    <center><img src="imgs/x.jpg" id="1x"></center>
+                    <center><img src="imgs/o.jpg" id="1o"></center>
                 </td>
                 <td style="width: 10vw; height: 10vw">
-                    <button id="2" style="width: 10vw; height: 10vw;" onclick="boop(2);"></button>
-                    <center><span id="2x">x</span></center>
-                    <center><span id="2o">o</span></center>
+                    <span id="2" style="width: 10vw; height: 10vw;" onclick="boop(2);"></span>
+                    <center><img src="imgs/x.jpg" id="2x"></center>
+                    <center><img src="imgs/o.jpg" id="2o"></center>
                 </td>
                 <td style="width: 10vw; height: 10vw">
-                    <button id="3" style="width: 10vw; height: 10vw;" onclick="boop(3);"></button>
-                    <center><span id="3x">x</span></center>
-                    <center><span id="3o">o</span></center>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 10vw; height: 10vw">
-                    <button id="4" style="width: 10vw; height: 10vw;" onclick="boop(4);"></button>
-                    <center><span id="4x">x</span></center>
-                    <center><span id="4o">o</span></center>
-                </td>
-                <td style="width: 10vw; height: 10vw">
-                    <button id="5" style="width: 10vw; height: 10vw;" onclick="boop(5);"></button>
-                    <center><span id="5x">x</span></center>
-                    <center><span id="5o">o</span></center>
-                </td>
-                <td style="width: 10vw; height: 10vw">
-                    <button id="6" style="width: 10vw; height: 10vw;" onclick="boop(6);"></button>
-                    <center><span id="6x">x</span></center>
-                    <center><span id="6o">o</span></center>
+                    <span id="3" style="width: 10vw; height: 10vw;" onclick="boop(3);"></span>
+                    <center><img src="imgs/x.jpg" id="3x"></center>
+                    <center><img src="imgs/o.jpg" id="3o"></center>
                 </td>
             </tr>
             <tr>
                 <td style="width: 10vw; height: 10vw">
-                    <button id="7" style="width: 10vw; height: 10vw;" onclick="boop(7);"></button>
-                    <center><span id="7x">x</span></center>
-                    <center><span id="7o">o</span></center>
+                    <span id="4" style="width: 10vw; height: 10vw;" onclick="boop(4);"></span>
+                    <center><img src="imgs/x.jpg" id="4x"></center>
+                    <center><img src="imgs/o.jpg" id="4o"></center>
                 </td>
                 <td style="width: 10vw; height: 10vw">
-                    <button id="8" style="width: 10vw; height: 10vw;" onclick="boop(8);"></button>
-                    <center><span id="8x">x</span></center>
-                    <center><span id="8o">o</span></center>
+                    <span id="5" style="width: 10vw; height: 10vw;" onclick="boop(5);"></span>
+                    <center><img src="imgs/x.jpg" id="5x"></center>
+                    <center><img src="imgs/o.jpg" id="5o"></center>
                 </td>
                 <td style="width: 10vw; height: 10vw">
-                    <button id="9" style="width: 10vw; height: 10vw;" onclick="boop(9);"></button>
-                    <center><span id="9x">x</span></center>
-                    <center><span id="9o">o</span></center>
+                    <span id="6" style="width: 10vw; height: 10vw;" onclick="boop(6);"></span>
+                    <center><img src="imgs/x.jpg" id="6x"></center>
+                    <center><img src="imgs/o.jpg" id="6o"></center>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 10vw; height: 10vw">
+                    <span id="7" style="width: 10vw; height: 10vw;" onclick="boop(7);"></span>
+                    <center><img src="imgs/x.jpg" id="7x"></center>
+                    <center><img src="imgs/o.jpg" id="7o"></center>
+                </td>
+                <td style="width: 10vw; height: 10vw">
+                    <span id="8" style="width: 10vw; height: 10vw;" onclick="boop(8);"></span>
+                    <center><img src="imgs/x.jpg" id="8x"></center>
+                    <center><img src="imgs/o.jpg" id="8o"></center>
+                </td>
+                <td style="width: 10vw; height: 10vw">
+                    <span id="9" style="width: 10vw; height: 10vw;" onclick="boop(9);"></span>
+                    <center><img src="imgs/x.jpg" id="9x"></center>
+                    <center><img src="imgs/o.jpg" id="9o"></center>
                 </td>
             </tr>
         </table></center>
+        <br/>
+        <center>
+            <h1 id="xWon">Player X Won!</h1>
+            <h1 id="oWon">Player O Won!</h1>
+        </center>
         <br/>
         <center>
             <button id="reset" onclick="setup();">Reset</button>
