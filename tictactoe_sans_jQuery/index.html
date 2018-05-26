@@ -42,6 +42,7 @@
                     document.getElementById('xWon').style.display = "none";
                     document.getElementById(i).style.display = "block";
                 }
+                console.log(sequences);
             }
             
             function boop(boxNum) {
@@ -61,15 +62,17 @@
             }
             
             function someoneWon() {
-                for (seq in sequences) {
-                    if (arr[seq[0]] != -1 && arr[seq[0]] == arr[seq[1]] && arr[seq[1]] == arr[seq[2]]) {
-                        if (arr[seq[0]] == 0) {
-                            document.getElementById('xWon').style.display = "block";
+                for (i = 0; i < sequences.length; i++) {
+                    if (arr[sequences[i][0]] != -1 && arr[sequences[i][0]] == arr[sequences[i][1]] && arr[sequences[i][1]] == arr[sequences[i][2]]) {
+                        if (arr[sequences[i][0]] == 0) {
+                            document.getElementById("xWon").style.display = "block";
                             clickToggle = false;
+                            break;
                         }
-                        else if (arr[seq[0]] == 1) {
-                            document.getElementById('oWon').style.display = "block";
+                        else if (arr[sequences[i][1]] == 1) {
+                            document.getElementById("oWon").style.display = "block";
                             clickToggle = false;
+                            break;
                         }
                     }
                 }
