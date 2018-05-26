@@ -27,6 +27,7 @@
         <script>
             var turn = 'x';
             var clickToggle = true;
+            var sequences = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
             
             var arr = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
             
@@ -60,84 +61,16 @@
             }
             
             function someoneWon() {
-                if (arr[0] == arr[1] && arr[1] == arr[2]) {
-                    if (arr[0] == 0) {
-                        document.getElementById('xWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                    else if (arr[0] == 1) {
-                        document.getElementById('oWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                }
-                if (arr[3] == arr[4] && arr[4] == arr[5]) {
-                    if (arr[3] == 0) {
-                        document.getElementById('xWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                    else if (arr[3] == 1) {
-                        document.getElementById('oWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                }
-                if (arr[6] == arr[7] && arr[7] == arr[8]) {
-                    if (arr[6] == 0) {
-                        document.getElementById('xWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                    else if (arr[6] == 1) {
-                        document.getElementById('oWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                }
-                if (arr[0] == arr[3] && arr[3] == arr[6]) {
-                    if (arr[0] == 0) {
-                        document.getElementById('xWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                    else if (arr[0] == 1) {
-                        document.getElementById('oWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                }
-                if (arr[1] == arr[4] && arr[4] == arr[7]) {
-                    if (arr[1] == 0) {
-                        document.getElementById('xWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                    else if (arr[1] == 1) {
-                        document.getElementById('oWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                }
-                if (arr[2] == arr[5] && arr[5] == arr[8]) {
-                    if (arr[2] == 0) {
-                        document.getElementById('xWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                    else if (arr[2] == 1) {
-                        document.getElementById('oWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                }
-                if (arr[0] == arr[4] && arr[4] == arr[8]) {
-                    if (arr[0] == 0) {
-                        document.getElementById('xWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                    else if (arr[0] == 1) {
-                        document.getElementById('oWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                }
-                if (arr[2] == arr[4] && arr[4] == arr[6]) {
-                    if (arr[2] == 0) {
-                        document.getElementById('xWon').style.display = "block";
-                        clickToggle = false;
-                    }
-                    else if (arr[2] == 1) {
-                        document.getElementById('oWon').style.display = "block";
-                        clickToggle = false;
+                for (seq in sequences) {
+                    if (arr[seq[0]] != -1 && arr[seq[0]] == arr[seq[1]] && arr[seq[1]] == arr[seq[2]]) {
+                        if (arr[seq[0]] == 0) {
+                            document.getElementById('xWon').style.display = "block";
+                            clickToggle = false;
+                        }
+                        else if (arr[seq[0]] == 1) {
+                            document.getElementById('oWon').style.display = "block";
+                            clickToggle = false;
+                        }
                     }
                 }
             }
