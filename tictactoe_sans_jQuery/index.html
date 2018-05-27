@@ -7,13 +7,23 @@
         <title>Tic-tac-toe</title>
         
         <style>
+            body {
+                background-color: rgb(240, 255, 255);
+            }
             img {
                 width: 10vw;
                 height: 10vw;
                 display: none;
             }
-            h1 {
+            #oWon, #xWon{
                 display: none;
+            }
+            
+            table {
+                background-color: rgba(255, 255, 255, 0.9);
+            }
+            #resetScoreboard {
+                display: inline-block;
             }
         </style>
         
@@ -45,7 +55,6 @@
                     document.getElementById('xWon').style.display = "none";
                     document.getElementById(i).style.display = "block";
                 }
-                console.log(sequences);
             }
             
             function boop(boxNum) {
@@ -63,18 +72,19 @@
                     }
                     someoneWon();
                 }
-                console.log(arr);
             }
             
             function someoneWon() {
                 for (i = 0; i < sequences.length; i++) {
                     if (arr[sequences[i][0]] != -1 && arr[sequences[i][0]] == arr[sequences[i][1]] && arr[sequences[i][1]] == arr[sequences[i][2]]) {
                         if (arr[sequences[i][0]] == 0) {
+                            document.getElementById("xCounter").innerHTML = (parseInt(document.getElementById("xCounter").innerHTML) + 1).toString();
                             document.getElementById("xWon").style.display = "block";
                             clickToggle = false;
                             break;
                         }
                         else if (arr[sequences[i][1]] == 1) {
+                            document.getElementById("oCounter").innerHTML = (parseInt(document.getElementById("oCounter").innerHTML) + 1).toString();;
                             document.getElementById("oWon").style.display = "block";
                             clickToggle = false;
                             break;
@@ -85,6 +95,12 @@
             
             function undo() {
                 if (whatsBeenDone.length > 0) {
+                    if (document.getElementById('xWon').style.display == 'block') {
+                        document.getElementById('xCounter').innerHTML = (parseInt(document.getElementById('xCounter').innerHTML) - 1).toString();
+                    }
+                    else if (document.getElementById('oWon').style.display == 'block') {
+                        document.getElementById('oCounter').innerHTML = (parseInt(document.getElementById('oCounter').innerHTML) - 1).toString();
+                    }
                     var lastEl = whatsBeenDone.pop();
                     arr[lastEl.charAt(0) - 1] = -1;
                     document.getElementById(lastEl.charAt(0)).style.display = "block";
@@ -97,9 +113,36 @@
                 }
             }
             
+            function resetScoreboard() {
+                setup();
+                document.getElementById("xCounter").innerHTML = "0";
+                document.getElementById("oCounter").innerHTML = "0";
+            }
+            
         </script>
         
-        <center><table border="1">
+        <center>
+            <h1>Tic-Tac-Toe!</h1>
+        </center>
+        
+        <div id="scoreboard">
+            <center><table border="1">
+                <tr>
+                    <th>X Won</th>
+                    <th>O Won</th>
+                </tr>
+                <tr>
+                    <td id="xCounter">0</td>
+                    <td id="oCounter">0</td>
+                </tr>
+            </table>
+            <button id="resetScoreboard" onclick="resetScoreboard();">Reset Scoreboard</button>
+            </center>
+        </div>
+        
+        <br/>
+        
+        <div id="board"><center><table border="1">
             <tr>
                 <td style="width: 10vw; height: 10vw">
                     <span id="1" style="width: 10vw; height: 10vw;" onclick="boop(1);"></span>
@@ -162,7 +205,7 @@
             <button id="reset" onclick="setup();">Reset</button>
             &nbsp;&nbsp;
             <button id="undo" onclick="undo();">Undo</button>
-        </center>
+        </center></div>
     
     </body>
 
