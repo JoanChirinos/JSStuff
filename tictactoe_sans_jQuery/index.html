@@ -15,7 +15,7 @@
                 height: 10vw;
                 display: none;
             }
-            #oWon, #xWon{
+            #oWon, #xWon, #tie {
                 display: none;
             }
             
@@ -51,10 +51,11 @@
                 for (i = 1; i <= 9; i++) {
                     document.getElementById(i + 'x').style.display = "none";
                     document.getElementById(i + 'o').style.display = "none";
-                    document.getElementById('oWon').style.display = "none";
-                    document.getElementById('xWon').style.display = "none";
                     document.getElementById(i).style.display = "block";
                 }
+                document.getElementById('oWon').style.display = "none";
+                document.getElementById('xWon').style.display = "none";
+                document.getElementById('tie').style.display = "none";
             }
             
             function boop(boxNum) {
@@ -70,7 +71,10 @@
                         arr[boxNum - 1] = 1;
                         turn = 'x';
                     }
-                    someoneWon();
+                    if (someoneWon()) return;
+                    if (tie()) {
+                        document.getElementById('tie').style.display = "block";
+                    }
                 }
             }
             
@@ -81,16 +85,17 @@
                             document.getElementById("xCounter").innerHTML = (parseInt(document.getElementById("xCounter").innerHTML) + 1).toString();
                             document.getElementById("xWon").style.display = "block";
                             clickToggle = false;
-                            break;
+                            return true;
                         }
                         else if (arr[sequences[i][1]] == 1) {
                             document.getElementById("oCounter").innerHTML = (parseInt(document.getElementById("oCounter").innerHTML) + 1).toString();;
                             document.getElementById("oWon").style.display = "block";
                             clickToggle = false;
-                            break;
+                            return true;
                         }
                     }
                 }
+                return false;
             }
             
             function undo() {
@@ -107,6 +112,7 @@
                     document.getElementById(lastEl).style.display = "none";
                     document.getElementById("xWon").style.display = "none";
                     document.getElementById("oWon").style.display = "none";
+                    document.getElementById("tie").style.display = "none";
                     clickToggle = true;
                     if (turn == 'x') turn = 'o';
                     else turn = 'x';
@@ -131,6 +137,13 @@
                     document.getElementById(i).style.display = "block";
                     document.getElementById(i + turn).style.display = "none";
                 }
+            }
+                
+            function tie() {
+                for (i in arr) {
+                    if (arr[i] == -1) return false;
+                }
+                return true;
             }
             
         </script>
@@ -213,6 +226,7 @@
         <center>
             <h1 id="xWon">Player X Won!</h1>
             <h1 id="oWon">Player O Won!</h1>
+            <h1 id="tie">It's a Tie!</h1>
         </center>
         <br/>
         <center>
