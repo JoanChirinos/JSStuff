@@ -29,9 +29,12 @@
             var clickToggle = true;
             var sequences = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
             
+            var whatsBeenDone = [];
+            
             var arr = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
             
             function setup() {
+                whatsBeenDone = [];
                 turn = 'x';
                 clickToggle = true;
                 arr = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
@@ -47,6 +50,7 @@
             
             function boop(boxNum) {
                 if (clickToggle) {
+                    whatsBeenDone.push(boxNum + turn);
                     document.getElementById(boxNum).style.display = "none";
                     document.getElementById(boxNum + turn).style.display = "block";
                     if (turn == 'x') {
@@ -59,6 +63,7 @@
                     }
                     someoneWon();
                 }
+                console.log(arr);
             }
             
             function someoneWon() {
@@ -75,6 +80,20 @@
                             break;
                         }
                     }
+                }
+            }
+            
+            function undo() {
+                if (whatsBeenDone.length > 0) {
+                    var lastEl = whatsBeenDone.pop();
+                    arr[lastEl.charAt(0) - 1] = -1;
+                    document.getElementById(lastEl.charAt(0)).style.display = "block";
+                    document.getElementById(lastEl).style.display = "none";
+                    document.getElementById("xWon").style.display = "none";
+                    document.getElementById("oWon").style.display = "none";
+                    clickToggle = true;
+                    if (turn == 'x') turn = 'o';
+                    else turn = 'x';
                 }
             }
             
@@ -141,6 +160,8 @@
         <br/>
         <center>
             <button id="reset" onclick="setup();">Reset</button>
+            &nbsp;&nbsp;
+            <button id="undo" onclick="undo();">Undo</button>
         </center>
     
     </body>
