@@ -146,6 +146,55 @@
                 return true;
             }
             
+            function computerMove() {
+                var whereTo = posToWin();
+                //if a winning move wasn't found
+                if (whereTo == -1) {
+                    while (true) {
+                        whereTo = Math.floor(Math.random() * arr.length);
+                        if (arr[whereTo] == -1) {
+                            boop(whereTo + 1);
+                            return;
+                        }
+                    }
+                }
+                else boop(whereTo + 1);
+            }
+            
+            function posToWin() {
+                var needToEqual = 0;
+                if (turn == 'o') {
+                    needToEqual = 1;
+                }
+                //try to win
+                for (i = 0; i < sequences.length; i++) {
+                    if (arr[sequences[i][0]] == needToEqual && arr[sequences[i][0]] == arr[sequences[i][1]] && arr[sequences[i][2]] == -1) {
+                        return sequences[i][2];
+                    }
+                    else if (arr[sequences[i][1]] == needToEqual && arr[sequences[i][1]] == arr[sequences[i][2]] && arr[sequences[i][0]] == -1) {
+                        return sequences[i][0];
+                    }
+                    else if (arr[sequences[i][0]] == needToEqual && arr[sequences[i][0]] == arr[sequences[i][2]] && arr[sequences[i][1]] == -1) {
+                        return sequences[i][1];
+                    }
+                }
+                if (needToEqual == 1) needToEqual = 0;
+                else needToEqual = 1;
+                //stop other player from winning
+                for (i = 0; i < sequences.length; i++) {
+                    if (arr[sequences[i][0]] == needToEqual && arr[sequences[i][0]] == arr[sequences[i][1]] && arr[sequences[i][2]] == -1) {
+                        return sequences[i][2];
+                    }
+                    else if (arr[sequences[i][1]] == needToEqual && arr[sequences[i][1]] == arr[sequences[i][2]] && arr[sequences[i][0]] == -1) {
+                        return sequences[i][0];
+                    }
+                    else if (arr[sequences[i][0]] == needToEqual && arr[sequences[i][0]] == arr[sequences[i][2]] && arr[sequences[i][1]] == -1) {
+                        return sequences[i][1];
+                    }
+                }
+                return -1;
+            }
+            
         </script>
         
         <center>
@@ -230,6 +279,8 @@
         </center>
         <br/>
         <center>
+            <button id="computer" onclick="computerMove();">Computer Move</button>
+            &nbsp;&nbsp;
             <button id="reset" onclick="setup();">Reset</button>
             &nbsp;&nbsp;
             <button id="undo" onclick="undo();">Undo</button>
